@@ -19,9 +19,6 @@ val Color.Companion.DarkGray900 get() = Color(0xFF212121)
 val Color.Companion.DarkGray600 get() = Color(0xFF757575)
 
 @Stable
-val Color.Companion.White get() = Color(0xFFFFFFFF)
-
-@Stable
 val Color.Companion.DarkGray800 get() = Color(0xFF1E1E1E)
 
 @Stable
