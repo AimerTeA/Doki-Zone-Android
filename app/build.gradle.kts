@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -16,6 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "JIKAN_BASE_URL", "\"https://api.jikan.moe/v4/\"")
     }
 
     buildTypes {
@@ -36,6 +41,16 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
+kotlin {
+    sourceSets.all {
+        languageSettings.enableLanguageFeature("ExplicitBackingFields")
     }
 }
 
@@ -49,6 +64,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.bundles.hilt)
+    implementation(libs.bundles.square)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.bundles.coil)
+    kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
