@@ -1,4 +1,4 @@
-package com.example.dokizone.ui.home
+package com.example.dokizone.ui.anime
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
