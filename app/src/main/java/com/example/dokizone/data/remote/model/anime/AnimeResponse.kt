@@ -1,4 +1,4 @@
-package com.example.dokizone.data.remote.model
+package com.example.dokizone.data.remote.model.anime
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -26,7 +26,7 @@ data class AnimeResponse(
     @SerialName("title_synonyms")
     val titleSynonyms: List<String>,
     @SerialName("type")
-    val type: String,
+    val type: String?,
     @SerialName("source")
     val source: String,
     @SerialName("episodes")

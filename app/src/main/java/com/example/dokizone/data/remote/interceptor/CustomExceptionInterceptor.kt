@@ -3,7 +3,7 @@ package com.example.dokizone.data.remote.interceptor
 import com.example.dokizone.core.BadRequestException
 import com.example.dokizone.core.NotFoundException
 import com.example.dokizone.core.ServerErrorException
-import com.example.dokizone.data.remote.model.ErrorResponse
+import com.example.dokizone.data.remote.model.anime.ErrorResponse
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.Response

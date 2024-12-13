@@ -26,3 +26,9 @@ val Color.Companion.LightGray200 get() = Color(0xFFE0E0E0)
 
 @Stable
 val Color.Companion.LightGray400 get() = Color(0xFFB0B0B0)
+
+@Stable
+val Color.Companion.White40 get() = Color(0x66FFFFFF)
+
+@Stable
+val Color.Companion.White10 get() = Color(0x1AFFFFFF)

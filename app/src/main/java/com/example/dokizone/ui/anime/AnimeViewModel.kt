@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dokizone.core.addOnFailureListener
 import com.example.dokizone.core.addOnSuccessListener
-import com.example.dokizone.domain.model.RandomAnime
+import com.example.dokizone.domain.model.AnimeCard
 import com.example.dokizone.domain.repository.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ class AnimeViewModel @Inject constructor(
 ) : ViewModel() {
     private val tag = AnimeViewModel::class.java.simpleName
 
-    val randomAnime: StateFlow<RandomAnime?>
+    val randomAnime: StateFlow<AnimeCard?>
         field = MutableStateFlow(null)
 
     init {
