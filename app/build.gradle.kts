@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
@@ -43,9 +43,6 @@ android {
         compose = true
         buildConfig = true
     }
-    kapt {
-        correctErrorTypes = true
-    }
 }
 
 kotlin {
@@ -66,14 +63,19 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.adaptive.navigation.suite)
+    implementation(libs.androidx.palette)
     implementation(libs.androidx.adaptive.navigation)
     implementation(libs.androidx.material3)
     implementation(libs.bundles.hilt)
     implementation(libs.bundles.square)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.coil)
-    kapt(libs.hilt.compiler)
+    implementation(libs.bundles.room)
+    ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

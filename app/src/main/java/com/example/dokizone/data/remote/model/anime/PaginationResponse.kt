@@ -1,4 +1,4 @@
-package com.example.dokizone.data.remote.model
+package com.example.dokizone.data.remote.model.anime
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

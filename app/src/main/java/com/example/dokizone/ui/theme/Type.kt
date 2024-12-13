@@ -1,34 +1,42 @@
 package com.example.dokizone.ui.theme
 
-import androidx.compose.material3.Typography
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.dokizone.R
 
 // Set of Material typography styles to start with
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+val funnelSansFamily = FontFamily(
+    Font(resId = R.font.funnel_sans_light, weight = FontWeight.Light),
+    Font(resId = R.font.funnel_sans_regular, weight = FontWeight.Normal),
+    Font(resId = R.font.funnel_sans_medium, weight = FontWeight.Medium),
+    Font(resId = R.font.funnel_sans_semi_bold, weight = FontWeight.SemiBold),
+    Font(resId = R.font.funnel_sans_bold, weight = FontWeight.Bold),
+    Font(resId = R.font.funnel_sans_extra_bold, weight = FontWeight.ExtraBold),
+    Font(resId = R.font.funnel_sans_light_italic, weight = FontWeight.Light, style = FontStyle.Italic),
+    Font(resId = R.font.funnel_sans_italic, style = FontStyle.Italic),
+    Font(resId = R.font.funnel_sans_medium_italic, weight = FontWeight.Medium, style = FontStyle.Italic),
+    Font(resId = R.font.funnel_sans_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
+    Font(resId = R.font.funnel_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
+    Font(resId = R.font.funnel_sans_extra_bold_italic, weight = FontWeight.ExtraBold, style = FontStyle.Italic),
+)
+
+@Immutable
+object DokiZoneTypography {
+    val title = TextStyle(
+        fontFamily = funnelSansFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp,
+        lineHeight = 32.sp
+    )
+    val synopsis = TextStyle(
+        fontFamily = funnelSansFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        lineHeight = 24.sp
     )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
-)
+}

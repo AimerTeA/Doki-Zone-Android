@@ -1,23 +1,28 @@
 [versions]
-agp = "8.9.0-alpha03"
+agp = "8.9.0-alpha05"
 kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29"
 coreKtx = "1.15.0"
 junit = "4.13.2"
+mockito = "5.4.0"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.11.00"
 hilt = "2.52"
-hiltNavigation = "1.2.0"
+androidx-hilt = "1.2.0"
 retrofit = "2.11.0"
 okhttp3 = "4.12.0"
 coil = "3.0.4"
 navigation = "2.8.4"
+palette = "1.0.0"
+room = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+mockito = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -33,9 +38,14 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }
 androidx-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
+androidx-palette = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
+androidx-room = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
+androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidx-hilt" }
+androidx-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hilt" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
 retrofit-okhttp3-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
@@ -48,11 +58,12 @@ coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", versio
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-kapt = { id = "kotlin-kapt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [bundles]
 square = ["retrofit", "retrofit-serialization", "retrofit-okhttp3", "retrofit-okhttp3-interceptor"]
-hilt = ["hilt-android", "hilt-navigation"]
+hilt = ["hilt-android", "androidx-hilt-navigation"]
 coil = ["coil", "coil-okhttp"]
+room = ["androidx-room-runtime", "androidx-room"]

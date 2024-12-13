@@ -1,10 +1,10 @@
-package com.example.dokizone.data.remote.model
+package com.example.dokizone.data.remote.model.anime
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MalItemResponse(
+data class StudioResponse(
     @SerialName("mal_id")
     val malId: Int,
     @SerialName("type")
