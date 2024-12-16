@@ -44,6 +44,7 @@ fun AnimeScreen(
     ) {
         val randomAnime by animeViewModel.randomAnime.collectAsStateWithLifecycle()
         val topAnime by animeViewModel.mostPopularAnime.collectAsStateWithLifecycle()
+        val currentSeasonAnime by animeViewModel.currentSeasonAnime.collectAsStateWithLifecycle()
 
         randomAnime?.let {
             RandomAnimeCard(
@@ -54,6 +55,10 @@ fun AnimeScreen(
 
         if (!topAnime.isNullOrEmpty()) {
             TopAnimeSection(topAnime = topAnime!!)
+        }
+
+        if (!currentSeasonAnime.isNullOrEmpty()) {
+            CurrentSeasonAnimeSection(currentSeasonAnime = currentSeasonAnime!!)
         }
 
         Spacer(modifier = Modifier.size(0.dp))
@@ -95,7 +100,6 @@ private fun TopAnimeSection(
     }
 }
 
-
 @Composable
 private fun TopAnimeCard(
     animeCard: AnimeCard,
@@ -117,3 +121,40 @@ private fun TopAnimeCard(
         )
     }
 }
+
+@Composable
+private fun CurrentSeasonAnimeSection(
+    currentSeasonAnime: List<AnimeCard>
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(
+            space = DokiZoneTheme.dimens.spaceBetweenTitleAndRow
+        )
+    ) {
+        Text(
+            modifier = Modifier.padding(
+                horizontal = DokiZoneTheme.dimens.generalPadding
+            ),
+            text = stringResource(id = R.string.top_current_season_title),
+            style = DokiZoneTheme.typography.rowTitle,
+            color = DokiZoneTheme.colorScheme.textColor
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(
+                space = DokiZoneTheme.dimens.spaceBetweenAnimeCards
+            )
+        ) {
+            items(currentSeasonAnime.size) { index ->
+                if (index == 0) {
+                    Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
+                }
+                AnimeCardView(animeCard = currentSeasonAnime[index])
+                if (index == currentSeasonAnime.size - 1) {
+                    Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
+                }
+            }
+        }
+    }
+}
+
+

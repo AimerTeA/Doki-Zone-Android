@@ -14,4 +14,7 @@ interface AnimeService {
     suspend fun getMostPopularAnime(
         @Query("filter") filter: String = Constants.Filter.BY_POPULARITY
     ): JikanResponse<List<AnimeResponse>>
+
+    @GET("seasons/now")
+    suspend fun getCurrentSeasonAnime(): JikanResponse<List<AnimeResponse>>
 }

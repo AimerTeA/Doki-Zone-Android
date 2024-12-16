@@ -54,4 +54,22 @@ class AnimeRepository @Inject constructor(
             }
         )
     }
+
+    suspend fun getCurrentSeasonAnime(): Result<List<AnimeCard>> {
+        return coroutineDispatcher.safeCallWithNetworkCheck(
+            networkManager = networkManager,
+            remoteCall = { animeRemoteDataSource.getCurrentSeasonAnime() },
+            localCall = {
+                animeLocalDataSource.getAnimeAnimeCardsByHomeSection(
+                    section = HomeSection.CURRENT_SEASON
+                )
+            },
+            saveToLocalCall = {
+                animeLocalDataSource.insertAnimeCardsWithHomeSection(
+                    section = HomeSection.CURRENT_SEASON,
+                    animeCards = it
+                )
+            }
+        )
+    }
 }
