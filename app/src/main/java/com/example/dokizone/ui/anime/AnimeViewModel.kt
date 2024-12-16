@@ -25,9 +25,13 @@ class AnimeViewModel @Inject constructor(
     val mostPopularAnime: StateFlow<List<AnimeCard>?>
         field = MutableStateFlow(null)
 
+    val currentSeasonAnime: StateFlow<List<AnimeCard>?>
+        field = MutableStateFlow(null)
+
     init {
         getRandomAnime()
         getTopAnime()
+        getCurrentSeasonAnime()
     }
 
     private fun getRandomAnime() {
@@ -45,6 +49,14 @@ class AnimeViewModel @Inject constructor(
         viewModelScope.launch {
             animeRepository.getMostPopularAnime().addOnSuccessListener { topAnime ->
                 this@AnimeViewModel.mostPopularAnime.value = topAnime
+            }
+        }
+    }
+
+    private fun getCurrentSeasonAnime() {
+        viewModelScope.launch {
+            animeRepository.getCurrentSeasonAnime().addOnSuccessListener { currentSeasonAnime ->
+                this@AnimeViewModel.currentSeasonAnime.value = currentSeasonAnime
             }
         }
     }

@@ -14,4 +14,8 @@ class AnimeRemoteDataSource @Inject constructor(
     suspend fun getMostPopularAnime(): List<AnimeCard> {
         return animeService.getMostPopularAnime().data.map { it.toAnimeCard() }
     }
+
+    suspend fun getCurrentSeasonAnime(): List<AnimeCard> {
+        return animeService.getCurrentSeasonAnime().data.map { it.toAnimeCard() }
+    }
 }
