@@ -1,10 +1,9 @@
 package com.example.dokizone.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.dokizone.data.local.db.DokiZoneDatabase
+import com.example.dokizone.data.local.db.callback.PreFillDokiZoneDatabaseCallback
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,9 +23,11 @@ object DatabaseModule {
             applicationContext,
             DokiZoneDatabase::class.java,
             "doki_zone_database"
-        ).build()
+        )
+            .addCallback(PreFillDokiZoneDatabaseCallback())
+            .build()
     }
 
     @Provides
-    fun provideRandomAnimeDao(database: DokiZoneDatabase) = database.randomAnimeDao()
+    fun provideAnimeDao(database: DokiZoneDatabase) = database.animeDao()
 }

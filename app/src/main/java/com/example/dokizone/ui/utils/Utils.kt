@@ -1,12 +1,15 @@
-package com.example.dokizone.ui
+package com.example.dokizone.ui.utils
 
 import android.content.res.Configuration
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
+import com.example.dokizone.R
 
 @Composable
 fun calculateLayoutType(): NavigationSuiteType {
@@ -39,4 +42,9 @@ fun isWideScreenMode(): Boolean {
 @Composable
 fun isPhoneInLandscape(): Boolean {
     return !isTablet() && isLandscapeOrientation()
+}
+
+@Composable
+fun testImage(): Painter {
+    return painterResource(R.drawable.test_image)
 }

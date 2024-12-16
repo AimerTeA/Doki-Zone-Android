@@ -1,7 +1,6 @@
 package com.example.dokizone.ui.anime
 
 import android.graphics.Bitmap
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,8 +23,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,13 +34,12 @@ import androidx.core.graphics.green
 import androidx.core.graphics.red
 import androidx.palette.graphics.Palette
 import coil3.BitmapImage
-import coil3.compose.SubcomposeAsyncImage
-import com.example.dokizone.R
 import com.example.dokizone.domain.model.AnimeCard
+import com.example.dokizone.ui.components.AsyncImageWithPreview
 import com.example.dokizone.ui.components.GradientWithBlurBox
-import com.example.dokizone.ui.isPhoneInLandscape
-import com.example.dokizone.ui.isTablet
-import com.example.dokizone.ui.isWideScreenMode
+import com.example.dokizone.ui.utils.isPhoneInLandscape
+import com.example.dokizone.ui.utils.isTablet
+import com.example.dokizone.ui.utils.isWideScreenMode
 import com.example.dokizone.ui.theme.DokiZoneTheme
 
 @Composable
@@ -156,21 +152,11 @@ private fun RandomAnimeImage(
         }
     }.clip(shape = DokiZoneTheme.shapes.imageShape)
 
-    SubcomposeAsyncImage(
+    AsyncImageWithPreview(
         model = imageUrl,
         contentDescription = null,
         modifier = imageModifier,
         clipToBounds = true,
-        error = {
-            if (LocalInspectionMode.current) {
-                Image(
-                    painter = painterResource(R.drawable.test_image),
-                    contentDescription = null,
-                    modifier = imageModifier,
-                    contentScale = contentScale
-                )
-            }
-        },
         onSuccess = { state ->
             val bitmap = (state.result.image as BitmapImage).bitmap.copy(Bitmap.Config.ARGB_8888, false)
             // Generate the color palette from the bitmap

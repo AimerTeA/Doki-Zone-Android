@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.dokizone.ui.anime.AnimeNavigation
-import com.example.dokizone.ui.calculateLayoutType
+import com.example.dokizone.ui.utils.calculateLayoutType
 import com.example.dokizone.ui.manga.MangaNavigation
 import com.example.dokizone.ui.news.NewsNavigation
 import com.example.dokizone.ui.theme.DokiZoneTheme

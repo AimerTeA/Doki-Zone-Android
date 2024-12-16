@@ -22,8 +22,12 @@ class AnimeViewModel @Inject constructor(
     val randomAnime: StateFlow<AnimeCard?>
         field = MutableStateFlow(null)
 
+    val mostPopularAnime: StateFlow<List<AnimeCard>?>
+        field = MutableStateFlow(null)
+
     init {
         getRandomAnime()
+        getTopAnime()
     }
 
     private fun getRandomAnime() {
@@ -33,6 +37,14 @@ class AnimeViewModel @Inject constructor(
             }.addOnFailureListener { exception ->
                 // Handle the error here
                 Log.d(tag, "getRandomAnime: $exception")
+            }
+        }
+    }
+
+    private fun getTopAnime() {
+        viewModelScope.launch {
+            animeRepository.getMostPopularAnime().addOnSuccessListener { topAnime ->
+                this@AnimeViewModel.mostPopularAnime.value = topAnime
             }
         }
     }
