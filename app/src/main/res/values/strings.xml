@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DokiZone</string>
+
+    <string name="top_anime_section_title">Most popular</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.dokizone.ui.theme
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -38,5 +40,17 @@ object DokiZoneTypography {
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp
+    )
+    val rowTitle = TextStyle(
+        fontFamily = funnelSansFamily,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 18.sp,
+        lineHeight = 24.sp
+    )
+    val popularNumberAnimeCard = TextStyle(
+        fontFamily = funnelSansFamily,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 72.sp,
+        lineHeight = 72.sp
     )
 }

@@ -32,3 +32,9 @@ val Color.Companion.White40 get() = Color(0x66FFFFFF)
 
 @Stable
 val Color.Companion.White10 get() = Color(0x1AFFFFFF)
+
+@Stable
+val Color.Companion.Orange500 get() = Color(0xFFFF9800) // For Light Theme
+
+@Stable
+val Color.Companion.Orange300 get() = Color(0xFFFFB74D) // For Dark Theme

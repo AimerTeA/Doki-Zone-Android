@@ -1,19 +1,31 @@
 package com.example.dokizone.data.local.anime
 
-import com.example.dokizone.data.local.db.dao.anime.RandomAnimeDao
+import com.example.dokizone.core.Constants
+import com.example.dokizone.data.local.db.dao.anime.AnimeDao
+import com.example.dokizone.data.local.db.entity.anime.AnimeCardHomeSectionCrossRef
 import com.example.dokizone.domain.mapper.toAnimeCard
-import com.example.dokizone.domain.mapper.toRandomAnimeEntity
+import com.example.dokizone.domain.mapper.toAnimeEntity
 import com.example.dokizone.domain.model.AnimeCard
 import javax.inject.Inject
 
 class AnimeLocalDataSource @Inject constructor(
-    private val randomAnimeDao: RandomAnimeDao
+    private val animeDao: AnimeDao
 ) {
-    suspend fun insertRandomAnime(animeCard: AnimeCard) {
-        randomAnimeDao.insertRandomAnime(animeCard.toRandomAnimeEntity())
+    suspend fun insertAnimeCardsWithHomeSection(section: Constants.HomeSection, animeCards: List<AnimeCard>) {
+        animeDao.insertAnimeCards(
+            animeCards.map { it.toAnimeEntity() }
+        )
+
+        val animeCrossRef = animeCards.map {
+            AnimeCardHomeSectionCrossRef(
+                animeCardId = it.id,
+                homeSectionName = section.name
+            )
+        }
+        animeDao.insertAnimeCardHomeSectionCrossRef(animeCrossRef)
     }
 
-    suspend fun getRandomAnime(): AnimeCard? {
-        return randomAnimeDao.getRandomAnime()?.toAnimeCard()
+    suspend fun getAnimeAnimeCardsByHomeSection(section: Constants.HomeSection): List<AnimeCard> {
+        return animeDao.getAnimeCardsByHomeSection(section.name).firstOrNull()?.animeCards?.map { it.toAnimeCard() }.orEmpty()
     }
 }

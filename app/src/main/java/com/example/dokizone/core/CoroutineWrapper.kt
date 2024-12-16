@@ -1,5 +1,6 @@
 package com.example.dokizone.core
 
+import com.example.dokizone.core.network.NetworkManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -10,6 +11,23 @@ suspend inline fun <T> CoroutineDispatcher.safeCall(crossinline block: suspend (
             Result.Success(block())
         } catch (e: IOException) {
             Result.Error(e)
+        }
+    }
+}
+
+suspend inline fun <T> CoroutineDispatcher.safeCallWithNetworkCheck(
+    networkManager: NetworkManager,
+    crossinline remoteCall: suspend () -> T,
+    crossinline localCall: suspend () -> T,
+    crossinline saveToLocalCall: suspend (data: T) -> Unit
+): Result<T> {
+    return safeCall {
+        if (networkManager.isInternetAvailable()) {
+            val data = remoteCall()
+            saveToLocalCall(data)
+            data
+        } else {
+            localCall()
         }
     }
 }
