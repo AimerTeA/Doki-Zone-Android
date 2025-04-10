@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.coil)
     implementation(libs.bundles.room)
+    implementation(libs.youtube.player)
     ksp(libs.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.androidx.room.compiler)

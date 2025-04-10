@@ -13,5 +13,7 @@ data class AnimeCardEntity(
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
     @ColumnInfo(name = "synopsis")
-    val synopsis: String?
+    val synopsis: String?,
+    @ColumnInfo(name = "video_url")
+    val videoUrl: String?
 )

@@ -9,6 +9,7 @@ import com.example.dokizone.data.local.anime.AnimeLocalDataSource
 import com.example.dokizone.data.local.time.TimeLocalDataSource
 import com.example.dokizone.data.remote.anime.AnimeRemoteDataSource
 import com.example.dokizone.domain.model.AnimeCard
+import com.example.dokizone.domain.model.PromotionalVideoCard
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
@@ -69,6 +70,19 @@ class AnimeRepository @Inject constructor(
                     section = HomeSection.CURRENT_SEASON,
                     animeCards = it
                 )
+            }
+        )
+    }
+
+    suspend fun getPromotionalVideos(): Result<List<PromotionalVideoCard>> {
+        return coroutineDispatcher.safeCallWithNetworkCheck(
+            networkManager = networkManager,
+            remoteCall = { animeRemoteDataSource.getPromotionalVideos() },
+            localCall = {
+                animeLocalDataSource.getPromotionalVideos()
+            },
+            saveToLocalCall = {
+                animeLocalDataSource.savePromotionalVideos(it)
             }
         )
     }

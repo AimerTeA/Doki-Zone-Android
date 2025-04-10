@@ -3,6 +3,7 @@ package com.example.dokizone.data.remote.anime
 import com.example.dokizone.core.Constants
 import com.example.dokizone.data.remote.model.anime.AnimeResponse
 import com.example.dokizone.data.remote.model.anime.JikanResponse
+import com.example.dokizone.data.remote.model.anime.PromoResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,4 +18,7 @@ interface AnimeService {
 
     @GET("seasons/now")
     suspend fun getCurrentSeasonAnime(): JikanResponse<List<AnimeResponse>>
+
+    @GET("watch/promos")
+    suspend fun getPromotionalVideos(): JikanResponse<List<PromoResponse>>
 }

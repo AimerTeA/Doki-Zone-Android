@@ -33,7 +33,10 @@ object NetworkModule {
             .baseUrl(BuildConfig.JIKAN_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(
-                Json.asConverterFactory("application/json; charset=UTF8".toMediaType())
+                Json {
+                    explicitNulls = false
+                    ignoreUnknownKeys = true
+                }.asConverterFactory("application/json; charset=UTF8".toMediaType())
             )
             .build()
     }

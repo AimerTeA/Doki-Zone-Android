@@ -53,4 +53,10 @@ object DokiZoneTypography {
         fontSize = 72.sp,
         lineHeight = 72.sp
     )
+    val promotionalVideoTitle = TextStyle(
+        fontFamily = funnelSansFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    )
 }

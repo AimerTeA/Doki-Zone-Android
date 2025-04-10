@@ -1,8 +1,6 @@
 package com.example.dokizone.domain.mapper
 
-import com.example.dokizone.core.Constants
 import com.example.dokizone.data.local.db.entity.anime.AnimeCardEntity
-import com.example.dokizone.data.local.db.entity.anime.AnimeCardHomeSectionCrossRef
 import com.example.dokizone.data.remote.model.anime.AnimeResponse
 import com.example.dokizone.data.remote.model.anime.JikanResponse
 import com.example.dokizone.domain.model.AnimeCard
@@ -34,6 +32,7 @@ fun AnimeCard.toAnimeEntity(): AnimeCardEntity {
         id = this.id,
         imageUrl = this.imageUrl,
         title = this.title,
-        synopsis = this.synopsis
+        synopsis = this.synopsis,
+        videoUrl = null
     )
 }

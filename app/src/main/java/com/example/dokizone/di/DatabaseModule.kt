@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.dokizone.data.local.db.DokiZoneDatabase
 import com.example.dokizone.data.local.db.callback.PreFillDokiZoneDatabaseCallback
+import com.example.dokizone.data.local.db.migration.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +26,9 @@ object DatabaseModule {
             "doki_zone_database"
         )
             .addCallback(PreFillDokiZoneDatabaseCallback())
+            .addMigrations(
+                MIGRATION_1_2
+            )
             .build()
     }
 
