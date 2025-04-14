@@ -1,11 +1,11 @@
 package com.example.dokizone.ui.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.example.dokizone.ui.video.VideoController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -15,7 +15,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 @Composable
 fun YouTubeVideoPlayer(
     modifier: Modifier = Modifier,
-    videoId: String
+    videoId: String,
+    onPlayerReady: ((YouTubePlayer) -> Unit)? = null,
+    onPipListener: () -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val playerState = rememberSaveable { mutableMapOf<String, Any>() }
@@ -29,6 +31,12 @@ fun YouTubeVideoPlayer(
                     youTubePlayerListener = object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
                             super.onReady(youTubePlayer)
+                            val defaultViewController = VideoController(this@apply, youTubePlayer)
+                            defaultViewController.addOnPipClickListener {
+                                onPipListener()
+                            }
+                            this@apply.setCustomPlayerUi(defaultViewController.getRootView())
+                            onPlayerReady?.invoke(youTubePlayer)
                             if (playerState["pause"] == true) {
                                 youTubePlayer.cueVideo(
                                     videoId = videoId,
@@ -62,10 +70,15 @@ fun YouTubeVideoPlayer(
                     playerOptions = IFramePlayerOptions
                         .Builder()
                         .rel(0)
+                        .controls(0)
                         .ivLoadPolicy(3) // Hide video annotations
+                        .fullscreen(1)
                         .build()
                 )
             }
+        },
+        update = {
+            it.context
         }
     )
 }

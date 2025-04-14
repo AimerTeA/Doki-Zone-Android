@@ -28,6 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.video.PiPVideoActivity"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleTask"
+            android:configChanges= "screenSize|smallestScreenSize|screenLayout|orientation" />
     </application>
 
 </manifest>

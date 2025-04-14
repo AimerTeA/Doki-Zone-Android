@@ -42,6 +42,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.adaptive.navigation.suite)
     implementation(libs.androidx.palette)
@@ -71,7 +73,7 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.coil)
     implementation(libs.bundles.room)
-    implementation(libs.youtube.player)
+    implementation(libs.bundles.youtube.player)
     ksp(libs.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.androidx.room.compiler)
