@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dokizone.core.addOnFailureListener
 import com.example.dokizone.core.addOnSuccessListener
 import com.example.dokizone.domain.model.AnimeCard
+import com.example.dokizone.domain.model.PromotionalVideoCard
 import com.example.dokizone.domain.repository.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,10 +29,14 @@ class AnimeViewModel @Inject constructor(
     val currentSeasonAnime: StateFlow<List<AnimeCard>?>
         field = MutableStateFlow(null)
 
+    val promotionalVideos: StateFlow<List<PromotionalVideoCard>?>
+        field = MutableStateFlow(null)
+
     init {
         getRandomAnime()
         getTopAnime()
         getCurrentSeasonAnime()
+        getPromotionalVideos()
     }
 
     private fun getRandomAnime() {
@@ -57,6 +62,14 @@ class AnimeViewModel @Inject constructor(
         viewModelScope.launch {
             animeRepository.getCurrentSeasonAnime().addOnSuccessListener { currentSeasonAnime ->
                 this@AnimeViewModel.currentSeasonAnime.value = currentSeasonAnime
+            }
+        }
+    }
+
+    private fun getPromotionalVideos() {
+        viewModelScope.launch {
+            animeRepository.getPromotionalVideos().addOnSuccessListener { promotionalVideos ->
+                this@AnimeViewModel.promotionalVideos.value = promotionalVideos
             }
         }
     }

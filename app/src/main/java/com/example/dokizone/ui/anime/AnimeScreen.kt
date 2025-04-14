@@ -1,12 +1,14 @@
 package com.example.dokizone.ui.anime
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,21 +20,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.dokizone.R
 import com.example.dokizone.domain.model.AnimeCard
+import com.example.dokizone.domain.model.PromotionalVideoCard
+import com.example.dokizone.ui.components.AsyncImageWithPreview
 import com.example.dokizone.ui.components.OutlineText
 import com.example.dokizone.ui.components.anime.AnimeCardView
 import com.example.dokizone.ui.theme.DokiZoneTheme
 
 @Composable
 fun AnimeScreen(
-    animeViewModel: AnimeViewModel = hiltViewModel(LocalContext.current as ComponentActivity)
+    animeViewModel: AnimeViewModel = hiltViewModel(LocalContext.current as ComponentActivity),
+    onVideoClick: (PromotionalVideoCard) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -45,6 +53,7 @@ fun AnimeScreen(
         val randomAnime by animeViewModel.randomAnime.collectAsStateWithLifecycle()
         val topAnime by animeViewModel.mostPopularAnime.collectAsStateWithLifecycle()
         val currentSeasonAnime by animeViewModel.currentSeasonAnime.collectAsStateWithLifecycle()
+        val promotionalVideos by animeViewModel.promotionalVideos.collectAsStateWithLifecycle()
 
         randomAnime?.let {
             RandomAnimeCard(
@@ -59,6 +68,13 @@ fun AnimeScreen(
 
         if (!currentSeasonAnime.isNullOrEmpty()) {
             CurrentSeasonAnimeSection(currentSeasonAnime = currentSeasonAnime!!)
+        }
+
+        if (!promotionalVideos.isNullOrEmpty()) {
+            PromotionalVideosSection(
+                promotionalVideos = promotionalVideos!!,
+                onVideoClick = onVideoClick
+            )
         }
 
         Spacer(modifier = Modifier.size(0.dp))
@@ -157,4 +173,76 @@ private fun CurrentSeasonAnimeSection(
     }
 }
 
+@Composable
+private fun PromotionalVideosSection(
+    promotionalVideos: List<PromotionalVideoCard>,
+    onVideoClick: (PromotionalVideoCard) -> Unit = {}
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(
+            space = DokiZoneTheme.dimens.spaceBetweenTitleAndRow
+        )
+    ) {
+        Text(
+            modifier = Modifier.padding(
+                horizontal = DokiZoneTheme.dimens.generalPadding
+            ),
+            text = stringResource(id = R.string.promotional_videos_section_title),
+            style = DokiZoneTheme.typography.rowTitle,
+            color = DokiZoneTheme.colorScheme.textColor
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(
+                space = DokiZoneTheme.dimens.spaceBetweenAnimeCards
+            )
+        ) {
+            items(promotionalVideos.size) { index ->
+                if (index == 0) {
+                    Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
+                }
+                PromotionalVideoCardView(
+                    modifier = Modifier.clickable {
+                       onVideoClick(promotionalVideos[index])
+                    },
+                    promotionalVideoCard = promotionalVideos[index]
+                )
+                if (index == promotionalVideos.size - 1) {
+                    Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
+                }
+            }
+        }
+    }
+}
 
+@Composable
+private fun PromotionalVideoCardView(
+    modifier: Modifier = Modifier,
+    promotionalVideoCard: PromotionalVideoCard
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(
+            space = DokiZoneTheme.dimens.spaceBetweenAnimeCards
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AsyncImageWithPreview(
+            modifier = modifier
+                .width(200.dp)
+                .height(150.dp)
+                .clip(shape = DokiZoneTheme.shapes.imageShape),
+            model = promotionalVideoCard.imageUrl,
+            contentDescription = promotionalVideoCard.title,
+            contentScale = ContentScale.Crop
+        )
+        Text(
+            modifier = modifier
+                .width(200.dp),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            text = promotionalVideoCard.title,
+            style = DokiZoneTheme.typography.promotionalVideoTitle,
+            color = DokiZoneTheme.colorScheme.textColor,
+        )
+    }
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/black">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/controls_container"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_play_pause"
+            android:padding="16dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:foreground="?android:selectableItemBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:tint="@color/white"
+            android:src="@drawable/ic_pause"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="1:20"/>
+
+        <SeekBar
+            android:id="@+id/sb_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_time"
+            app:layout_constraintEnd_toStartOf="@id/tv_full_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/white"
+            android:thumbTint="@color/white"
+            tools:progress="34"/>
+
+        <TextView
+            android:id="@+id/tv_full_time"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_pip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="2:40"/>
+
+        <ImageView
+            android:id="@+id/btn_pip"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:tint="@color/white"
+            android:src="@drawable/ic_pip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_controllers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_time, sb_progress, tv_full_time, btn_pip"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

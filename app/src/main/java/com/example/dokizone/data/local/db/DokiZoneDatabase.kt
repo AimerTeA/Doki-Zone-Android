@@ -16,7 +16,7 @@ import com.example.dokizone.data.local.db.type_converter.home_section.HomeSectio
         HomeSectionEntity::class,
         AnimeCardHomeSectionCrossRef::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(HomeSectionTypeConverter::class)
 abstract class DokiZoneDatabase : RoomDatabase() {

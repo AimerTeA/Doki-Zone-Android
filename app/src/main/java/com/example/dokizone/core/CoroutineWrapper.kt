@@ -1,5 +1,6 @@
 package com.example.dokizone.core
 
+import android.util.Log
 import com.example.dokizone.core.network.NetworkManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -10,6 +11,10 @@ suspend inline fun <T> CoroutineDispatcher.safeCall(crossinline block: suspend (
         try {
             Result.Success(block())
         } catch (e: IOException) {
+            Log.e("Error", "addOnFailureListener: $e")
+            Result.Error(e)
+        } catch (e: Exception) {
+            Log.e("Error", "addOnFailureListener: $e")
             Result.Error(e)
         }
     }

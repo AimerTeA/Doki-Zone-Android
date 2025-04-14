@@ -1,7 +1,10 @@
 package com.example.dokizone.data.remote.anime
 
+import com.example.dokizone.data.remote.model.anime.PromoResponse
 import com.example.dokizone.domain.model.AnimeCard
 import com.example.dokizone.domain.mapper.toAnimeCard
+import com.example.dokizone.domain.mapper.toPromotionalVideoCard
+import com.example.dokizone.domain.model.PromotionalVideoCard
 import javax.inject.Inject
 
 class AnimeRemoteDataSource @Inject constructor(
@@ -17,5 +20,9 @@ class AnimeRemoteDataSource @Inject constructor(
 
     suspend fun getCurrentSeasonAnime(): List<AnimeCard> {
         return animeService.getCurrentSeasonAnime().data.map { it.toAnimeCard() }
+    }
+
+    suspend fun getPromotionalVideos(): List<PromotionalVideoCard> {
+        return animeService.getPromotionalVideos().data.map { it.toPromotionalVideoCard()  }
     }
 }

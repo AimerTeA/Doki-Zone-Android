@@ -8,6 +8,7 @@ object Constants {
     enum class HomeSection {
         RANDOM,
         POPULAR,
-        CURRENT_SEASON
+        CURRENT_SEASON,
+        PROMOTIONAL_VIDEOS
     }
 }
