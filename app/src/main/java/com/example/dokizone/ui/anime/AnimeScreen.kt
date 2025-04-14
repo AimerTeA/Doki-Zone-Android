@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,14 +16,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -129,10 +133,9 @@ private fun TopAnimeCard(
             text = index.toString(),
             style = DokiZoneTheme.typography.popularNumberAnimeCard,
             color = DokiZoneTheme.colorScheme.popularNumberTextColor,
-            strokeColor = DokiZoneTheme.colorScheme.backgroundColor
+            strokeColor = DokiZoneTheme.colorScheme.popularNumberStrokeColor
         )
         AnimeCardView(
-            modifier = Modifier.padding(start = 20.dp),
             animeCard = animeCard
         )
     }
@@ -226,15 +229,25 @@ private fun PromotionalVideoCardView(
         ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AsyncImageWithPreview(
-            modifier = modifier
-                .width(200.dp)
-                .height(150.dp)
-                .clip(shape = DokiZoneTheme.shapes.imageShape),
-            model = promotionalVideoCard.imageUrl,
-            contentDescription = promotionalVideoCard.title,
-            contentScale = ContentScale.Crop
-        )
+        Box {
+            AsyncImageWithPreview(
+                modifier = modifier
+                    .width(200.dp)
+                    .aspectRatio(16/9f)
+                    .clip(shape = DokiZoneTheme.shapes.imageShape),
+                model = promotionalVideoCard.imageUrl,
+                contentDescription = promotionalVideoCard.title,
+                contentScale = ContentScale.Crop
+            )
+
+            Icon(
+                modifier = Modifier.align(Alignment.Center)
+                    .size(32.dp),
+                painter = painterResource(R.drawable.ic_play),
+                contentDescription = null,
+                tint = Color.White,
+            )
+        }
         Text(
             modifier = modifier
                 .width(200.dp),

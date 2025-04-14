@@ -13,7 +13,7 @@ val Color.Companion.Yellow500 get() = Color(0xFFFFEB3B)
 val Color.Companion.Yellow400 get() = Color(0xFFFFCA28)
 
 @Stable
-val Color.Companion.DarkGray900 get() = Color(0xFF212121)
+val Color.Companion.DarkGray1000 get() = Color(0xFF0D0E11)
 
 @Stable
 val Color.Companion.DarkGray600 get() = Color(0xFF757575)
@@ -34,7 +34,7 @@ val Color.Companion.White40 get() = Color(0x66FFFFFF)
 val Color.Companion.White10 get() = Color(0x1AFFFFFF)
 
 @Stable
-val Color.Companion.Orange500 get() = Color(0xFFFF9800) // For Light Theme
+val Color.Companion.Pink100 get() = Color(0xFFF3D6D5)
 
 @Stable
-val Color.Companion.Orange300 get() = Color(0xFFFFB74D) // For Dark Theme
+val Color.Companion.Pink200 get() = Color(0xFFF1A1A5)

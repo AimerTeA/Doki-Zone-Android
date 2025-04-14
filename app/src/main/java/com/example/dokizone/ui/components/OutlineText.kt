@@ -37,7 +37,7 @@ fun OutlineText(
             text = text,
             style = style
                 .copy(
-                    drawStyle = Stroke(width = 4f)
+                    drawStyle = Stroke(width = 8f)
                 ),
             color = strokeColor,
         )

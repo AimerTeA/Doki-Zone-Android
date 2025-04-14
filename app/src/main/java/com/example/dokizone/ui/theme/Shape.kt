@@ -5,4 +5,5 @@ import androidx.compose.ui.unit.dp
 
 object DokiZoneShapes {
     val imageShape: RoundedCornerShape = RoundedCornerShape(size = 8.dp)
+    val circleShape: RoundedCornerShape = RoundedCornerShape(size = 100.dp)
 }

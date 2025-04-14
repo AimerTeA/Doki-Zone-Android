@@ -154,7 +154,7 @@ class PiPVideoActivity : ComponentActivity() {
     ): PictureInPictureParams {
         return PictureInPictureParams.Builder()
             .setSourceRectHint(videoViewBounds)
-            .setAspectRatio(Rational(16, 11))
+            .setAspectRatio(Rational(16, 9))
             .setActions(
                 listOf(
                     RemoteAction(

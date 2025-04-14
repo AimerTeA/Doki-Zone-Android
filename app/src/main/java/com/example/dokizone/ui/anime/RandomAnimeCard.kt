@@ -18,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -37,10 +36,10 @@ import coil3.BitmapImage
 import com.example.dokizone.domain.model.AnimeCard
 import com.example.dokizone.ui.components.AsyncImageWithPreview
 import com.example.dokizone.ui.components.GradientWithBlurBox
+import com.example.dokizone.ui.theme.DokiZoneTheme
 import com.example.dokizone.ui.utils.isPhoneInLandscape
 import com.example.dokizone.ui.utils.isTablet
 import com.example.dokizone.ui.utils.isWideScreenMode
-import com.example.dokizone.ui.theme.DokiZoneTheme
 
 @Composable
 fun RandomAnimeCard(
@@ -48,26 +47,12 @@ fun RandomAnimeCard(
     randomAnime: AnimeCard
 ) {
     var dominantColor by remember { mutableStateOf(Color.Black) }
-    var vibrantColor by remember { mutableStateOf(Color.Black) }
-    val gradient = if (isWideScreenMode()) {
-        Brush.radialGradient(
-            colorStops = arrayOf(
-                0f to dominantColor,
-                0.65f to vibrantColor,
-                .8f to DokiZoneTheme.colorScheme.backgroundColor
-            ),
-            center = Offset(0f,0f),
-            radius = 1000f
+    val gradient = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0f to dominantColor.copy(alpha = .7f),
+            .95f to DokiZoneTheme.colorScheme.backgroundColor
         )
-    } else {
-        Brush.verticalGradient(
-            colorStops = arrayOf(
-                0f to dominantColor,
-                0.5f to vibrantColor,
-                .95f to DokiZoneTheme.colorScheme.backgroundColor
-            )
-        )
-    }
+    )
     val sizeModifier = when {
         isTablet() -> {
             modifier.height(310.dp)
@@ -98,7 +83,6 @@ fun RandomAnimeCard(
                 imageUrl = randomAnime.imageUrl,
                 onColorsRetrieved = { dominant, vibrant ->
                     dominantColor = dominant
-                    vibrantColor = vibrant
                 }
             )
             if (isWideScreenMode()) {
