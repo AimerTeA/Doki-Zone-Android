@@ -9,11 +9,11 @@ sealed class TabScreen(
     val icon: Int
 ) {
     @Serializable
-    object AnimeTab : TabScreen("Anime", R.drawable.ic_launcher_foreground)
+    object AnimeTab : TabScreen("Anime", R.drawable.ic_movie)
     @Serializable
-    object MangaTab : TabScreen("Manga", R.drawable.ic_launcher_foreground)
+    object MangaTab : TabScreen("Manga", R.drawable.ic_paper)
     @Serializable
-    object NewsTab : TabScreen("News", R.drawable.ic_launcher_foreground)
+    object NewsTab : TabScreen("News", R.drawable.ic_news)
 
 
     companion object {

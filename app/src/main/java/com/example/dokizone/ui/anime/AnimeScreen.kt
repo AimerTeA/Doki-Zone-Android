@@ -1,6 +1,7 @@
 package com.example.dokizone.ui.anime
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -39,6 +39,7 @@ import com.example.dokizone.domain.model.PromotionalVideoCard
 import com.example.dokizone.ui.components.AsyncImageWithPreview
 import com.example.dokizone.ui.components.OutlineText
 import com.example.dokizone.ui.components.anime.AnimeCardView
+import com.example.dokizone.ui.theme.DarkGray800
 import com.example.dokizone.ui.theme.DokiZoneTheme
 
 @Composable
@@ -136,6 +137,7 @@ private fun TopAnimeCard(
             strokeColor = DokiZoneTheme.colorScheme.popularNumberStrokeColor
         )
         AnimeCardView(
+            modifier = Modifier.padding(start = 15.dp),
             animeCard = animeCard
         )
     }
@@ -240,13 +242,20 @@ private fun PromotionalVideoCardView(
                 contentScale = ContentScale.Crop
             )
 
-            Icon(
+            Box(
                 modifier = Modifier.align(Alignment.Center)
-                    .size(32.dp),
-                painter = painterResource(R.drawable.ic_play),
-                contentDescription = null,
-                tint = Color.White,
-            )
+                    .size(48.dp)
+                    .clip(shape = DokiZoneTheme.shapes.circleShape)
+                    .background(color = Color.DarkGray800.copy(alpha = 0.4f))
+            ) {
+                Icon(
+                    modifier = Modifier.align(Alignment.Center)
+                        .size(32.dp),
+                    painter = painterResource(R.drawable.ic_play),
+                    contentDescription = null,
+                    tint = Color.White,
+                )
+            }
         }
         Text(
             modifier = modifier

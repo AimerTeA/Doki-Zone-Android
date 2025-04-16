@@ -28,10 +28,11 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.core.content.ContextCompat
 import com.example.dokizone.R
+import com.example.dokizone.ui.base.BaseActivity
 import com.example.dokizone.ui.theme.DokiZoneTheme
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
-class PiPVideoActivity : ComponentActivity() {
+class PiPVideoActivity : BaseActivity() {
     private var videoViewBounds = Rect()
     private var isInPipMode by mutableStateOf(false)
     private var title by mutableStateOf("")
@@ -52,7 +53,6 @@ class PiPVideoActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         videoId = intent.getStringExtra(VIDEO_ID).orEmpty()
         title = intent.getStringExtra(TITLE).orEmpty()
         setContent {

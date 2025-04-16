@@ -4,9 +4,13 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaults
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItemColors
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,17 +24,36 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.dokizone.ui.anime.AnimeNavigation
-import com.example.dokizone.ui.utils.calculateLayoutType
 import com.example.dokizone.ui.manga.MangaNavigation
 import com.example.dokizone.ui.news.NewsNavigation
 import com.example.dokizone.ui.theme.DokiZoneTheme
+import com.example.dokizone.ui.utils.calculateLayoutType
 
 @Composable
 fun DokiNavigation() {
     var selectedItem by remember { mutableIntStateOf(0) }
+    val navigationBarItemColors = NavigationBarItemDefaults.colors(
+        indicatorColor = DokiZoneTheme.colorScheme.selectedNavigationBarIndicatorColor,
+        selectedIconColor = DokiZoneTheme.colorScheme.selectedNavigationBarIconColor,
+        selectedTextColor = DokiZoneTheme.colorScheme.selectedNavigationBarTextColor,
+        unselectedIconColor = DokiZoneTheme.colorScheme.unselectedNavigationBarIconColor,
+        unselectedTextColor = DokiZoneTheme.colorScheme.unselectedNavigationBarTextColor
+    )
+    val navigationRailItemColors = NavigationRailItemDefaults.colors(
+        indicatorColor = DokiZoneTheme.colorScheme.selectedNavigationBarIndicatorColor,
+        selectedIconColor = DokiZoneTheme.colorScheme.selectedNavigationBarIconColor,
+        selectedTextColor = DokiZoneTheme.colorScheme.selectedNavigationBarTextColor,
+        unselectedIconColor = DokiZoneTheme.colorScheme.unselectedNavigationBarIconColor,
+        unselectedTextColor = DokiZoneTheme.colorScheme.unselectedNavigationBarTextColor
+    )
+    val navigationDrawerItemColors = NavigationDrawerItemDefaults.colors()
     Scaffold { innerPadding ->
         NavigationSuiteScaffold(
             containerColor = DokiZoneTheme.colorScheme.backgroundColor,
+            navigationSuiteColors = NavigationSuiteDefaults.colors(
+                navigationBarContainerColor = DokiZoneTheme.colorScheme.bottomNavigationColor,
+                navigationRailContainerColor = DokiZoneTheme.colorScheme.bottomNavigationColor,
+            ),
             modifier = Modifier.padding(
                 start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                 end = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -47,15 +70,20 @@ fun DokiNavigation() {
                             Icon(
                                 painter = painterResource(screen.icon),
                                 contentDescription = screen.title,
-                                modifier = Modifier.size(60.dp)
+                                modifier = Modifier.size(32.dp)
                             )
                         },
                         label = {
                             Text(
                                 text = screen.title,
-                                style = MaterialTheme.typography.labelSmall
+                                style = DokiZoneTheme.typography.navigationText
                             )
-                        }
+                        },
+                        colors = NavigationSuiteItemColors(
+                            navigationBarItemColors = navigationBarItemColors,
+                            navigationRailItemColors = navigationRailItemColors,
+                            navigationDrawerItemColors = navigationDrawerItemColors
+                        )
                     )
                 }
             },

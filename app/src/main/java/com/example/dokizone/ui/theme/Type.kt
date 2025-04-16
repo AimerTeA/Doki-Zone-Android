@@ -55,4 +55,10 @@ object DokiZoneTypography {
         fontSize = 16.sp,
         lineHeight = 24.sp
     )
+    val navigationText = TextStyle(
+        fontFamily = fontFamily,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        fontWeight = FontWeight.SemiBold
+    )
 }

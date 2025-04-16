@@ -7,25 +7,12 @@ import androidx.compose.ui.graphics.Color
 val Color.Companion.LightGray50 get() = Color(0xFFFAFAFA)
 
 @Stable
-val Color.Companion.Yellow500 get() = Color(0xFFFFEB3B)
-
-@Stable
-val Color.Companion.Yellow400 get() = Color(0xFFFFCA28)
-
-@Stable
 val Color.Companion.DarkGray1000 get() = Color(0xFF0D0E11)
 
-@Stable
-val Color.Companion.DarkGray600 get() = Color(0xFF757575)
 
 @Stable
-val Color.Companion.DarkGray800 get() = Color(0xFF1E1E1E)
+val Color.Companion.DarkGray800 get() = Color(0xFF1E1E20)
 
-@Stable
-val Color.Companion.LightGray200 get() = Color(0xFFE0E0E0)
-
-@Stable
-val Color.Companion.LightGray400 get() = Color(0xFFB0B0B0)
 
 @Stable
 val Color.Companion.White40 get() = Color(0x66FFFFFF)
@@ -37,4 +24,4 @@ val Color.Companion.White10 get() = Color(0x1AFFFFFF)
 val Color.Companion.Pink100 get() = Color(0xFFF3D6D5)
 
 @Stable
-val Color.Companion.Pink200 get() = Color(0xFFF1A1A5)
+val Color.Companion.DustyBlue600 get() = Color(0xFF5F6C87)
