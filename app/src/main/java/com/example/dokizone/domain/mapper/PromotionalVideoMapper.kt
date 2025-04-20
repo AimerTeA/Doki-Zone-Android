@@ -6,9 +6,9 @@ import com.example.dokizone.domain.model.PromotionalVideoCard
 
 fun PromoResponse.toPromotionalVideoCard(): PromotionalVideoCard {
     return PromotionalVideoCard(
-        id = entry.malId,
+        id = entry!!.malId,
         title = "${entry.title} - $title",
-        imageUrl = entry.images.jpg.largeImageUrl,
+        imageUrl = entry.images.jpg.largeImageUrl!!,
         videoUrl = trailer?.youtubeId.orEmpty()
     )
 }

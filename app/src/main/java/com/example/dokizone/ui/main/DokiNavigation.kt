@@ -1,5 +1,7 @@
 package com.example.dokizone.ui.main
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,6 +15,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaul
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItemColors
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -21,14 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.dokizone.ui.anime.AnimeNavigation
 import com.example.dokizone.ui.manga.MangaNavigation
 import com.example.dokizone.ui.news.NewsNavigation
 import com.example.dokizone.ui.theme.DokiZoneTheme
+import com.example.dokizone.ui.theme.LocalCurrentTransitionScope
 import com.example.dokizone.ui.utils.calculateLayoutType
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun DokiNavigation() {
     var selectedItem by remember { mutableIntStateOf(0) }
@@ -89,7 +93,13 @@ fun DokiNavigation() {
             },
             layoutType = calculateLayoutType(),
             content = {
-                InnerNavigation(selectedItem)
+                SharedTransitionLayout {
+                    CompositionLocalProvider(
+                        LocalCurrentTransitionScope provides this
+                    ) {
+                        InnerNavigation(selectedItem)
+                    }
+                }
             }
         )
     }
@@ -97,16 +107,13 @@ fun DokiNavigation() {
 
 @Composable
 private fun InnerNavigation(selectedItem: Int) {
-    val navController = rememberNavController()
     val startDestination = TabScreen.tabs[selectedItem]
-    NavHost(
-        navController = navController,
-        startDestination = startDestination
-    ) {
-        AnimeNavigation(navController)
-
-        MangaNavigation(navController)
-
-        NewsNavigation(navController)
+    val animeNavController = rememberNavController()
+    val mangaNavController = rememberNavController()
+    val newsNavController = rememberNavController()
+    when (startDestination) {
+        is TabScreen.AnimeTab ->  AnimeNavigation(animeNavController)
+        is TabScreen.MangaTab -> MangaNavigation(mangaNavController)
+        is TabScreen.NewsTab -> NewsNavigation(newsNavController)
     }
 }

@@ -7,4 +7,6 @@ object DokiZoneDimen {
     val spaceBetweenRowsHome = 16.dp
     val spaceBetweenTitleAndRow = 5.dp
     val spaceBetweenAnimeCards = 8.dp
+    val cardHorizonalSpace = 8.dp
+    val episodePadding = 8.dp
 }

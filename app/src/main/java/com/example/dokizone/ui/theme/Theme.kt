@@ -1,5 +1,8 @@
 package com.example.dokizone.ui.theme
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,7 +24,10 @@ val LocalTypography = staticCompositionLocalOf {
     DokiZoneTypography
 }
 
-
+@OptIn(ExperimentalSharedTransitionApi::class)
+val LocalCurrentTransitionScope = staticCompositionLocalOf<SharedTransitionScope> {
+    error("No SharedTransitionScope provided")
+}
 
 @Composable
 fun DokiZoneTheme(

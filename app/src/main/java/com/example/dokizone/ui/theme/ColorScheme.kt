@@ -14,7 +14,11 @@ data class ColorScheme(
     val unselectedNavigationBarIconColor: Color,
     val selectedNavigationBarTextColor: Color,
     val unselectedNavigationBarTextColor: Color,
-    val selectedNavigationBarIndicatorColor: Color
+    val selectedNavigationBarIndicatorColor: Color,
+    val tabContainerColor: Color,
+    val tabSelectorColor: Color,
+    val tabSelectedContentColor: Color,
+    val tabUnselectedContentColor: Color
 )
 
 fun providesLightColorScheme(): ColorScheme {
@@ -30,7 +34,11 @@ fun providesLightColorScheme(): ColorScheme {
         selectedNavigationBarIconColor = Color.DarkGray1000,
         unselectedNavigationBarIconColor = Color.DarkGray1000,
         selectedNavigationBarTextColor = Color.DarkGray1000,
-        unselectedNavigationBarTextColor = Color.DarkGray1000
+        unselectedNavigationBarTextColor = Color.DarkGray1000,
+        tabContainerColor = Color.LightGray50,
+        tabSelectorColor = Color.Pink100,
+        tabSelectedContentColor = Color.White,
+        tabUnselectedContentColor = Color.White
     )
 }
 
@@ -47,6 +55,10 @@ fun providesDarkColorScheme(): ColorScheme {
         selectedNavigationBarIconColor = Color.DarkGray1000,
         unselectedNavigationBarIconColor = Color.LightGray50,
         selectedNavigationBarTextColor = Color.LightGray50,
-        unselectedNavigationBarTextColor = Color.LightGray50
+        unselectedNavigationBarTextColor = Color.LightGray50,
+        tabContainerColor = Color.DarkGray800,
+        tabSelectorColor = Color.Pink100,
+        tabSelectedContentColor = Color.White,
+        tabUnselectedContentColor = Color.White
     )
 }

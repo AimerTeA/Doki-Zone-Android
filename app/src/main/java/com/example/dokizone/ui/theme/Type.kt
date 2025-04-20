@@ -61,4 +61,22 @@ object DokiZoneTypography {
         lineHeight = 16.sp,
         fontWeight = FontWeight.SemiBold
     )
+    val toolbar = TextStyle(
+        fontFamily = fontFamily,
+        fontSize = 24.sp,
+        lineHeight = 26.sp,
+        fontWeight = FontWeight.Bold
+    )
+    val tabBar = TextStyle(
+        fontFamily = fontFamily,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        fontWeight = FontWeight.Bold
+    )
+    val bodyText = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    )
 }

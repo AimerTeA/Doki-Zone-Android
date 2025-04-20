@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 sealed class AnimeScreenRoutes {
     @Serializable
     object AnimeScreen: AnimeScreenRoutes()
+
+    @Serializable
+    data class AnimeDetailsScreen(val animeId: Int): AnimeScreenRoutes()
 }

@@ -1,15 +1,14 @@
 package com.example.dokizone.ui.manga
 
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.example.dokizone.ui.main.TabScreen
 
-fun NavGraphBuilder.MangaNavigation(
-    navController: NavController
-) {
-    navigation<TabScreen.MangaTab>(
+@Composable
+fun MangaNavigation(navController: NavHostController) {
+    NavHost(
+        navController = navController,
         startDestination = MangaScreenRoutes.MangaScreen
     ) {
         composable<MangaScreenRoutes.MangaScreen> {

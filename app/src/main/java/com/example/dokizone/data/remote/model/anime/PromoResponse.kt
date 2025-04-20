@@ -8,7 +8,7 @@ data class PromoResponse(
     @SerialName("title")
     val title: String,
     @SerialName("entry")
-    val entry: EntryResponse,
+    val entry: EntryResponse?,
     @SerialName("trailer")
     val trailer: Trailer?
 )

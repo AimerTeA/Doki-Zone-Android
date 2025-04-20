@@ -1,15 +1,14 @@
 package com.example.dokizone.ui.news
 
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.example.dokizone.ui.main.TabScreen
 
-fun NavGraphBuilder.NewsNavigation(
-    navController: NavController
-) {
-    navigation<TabScreen.NewsTab>(
+@Composable
+fun NewsNavigation(navController: NavHostController) {
+    NavHost(
+        navController = navController,
         startDestination = NewsScreenRoutes.NewsScreen
     ) {
         composable<NewsScreenRoutes.NewsScreen> {

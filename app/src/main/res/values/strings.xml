@@ -4,4 +4,6 @@
     <string name="top_anime_section_title">Most popular</string>
     <string name="top_current_season_title">Best of the moment</string>
     <string name="promotional_videos_section_title">Upcoming</string>
+
+    <string name="episodes">Episodes</string>
 </resources>

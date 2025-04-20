@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DokiZone"
         android:name=".ui.application.DokiZoneApplication"
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"

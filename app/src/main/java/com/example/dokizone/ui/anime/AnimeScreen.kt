@@ -1,6 +1,8 @@
 package com.example.dokizone.ui.anime
 
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,15 +39,20 @@ import com.example.dokizone.R
 import com.example.dokizone.domain.model.AnimeCard
 import com.example.dokizone.domain.model.PromotionalVideoCard
 import com.example.dokizone.ui.components.AsyncImageWithPreview
+import com.example.dokizone.ui.components.ImageVideoView
 import com.example.dokizone.ui.components.OutlineText
 import com.example.dokizone.ui.components.anime.AnimeCardView
 import com.example.dokizone.ui.theme.DarkGray800
 import com.example.dokizone.ui.theme.DokiZoneTheme
+import com.example.dokizone.ui.theme.LocalCurrentTransitionScope
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun AnimeScreen(
     animeViewModel: AnimeViewModel = hiltViewModel(LocalContext.current as ComponentActivity),
-    onVideoClick: (PromotionalVideoCard) -> Unit = {}
+    animatedContentScope: AnimatedContentScope? = null,
+    onVideoClick: (PromotionalVideoCard) -> Unit = {},
+    navigateToAnimeDetails: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -61,18 +68,39 @@ fun AnimeScreen(
         val promotionalVideos by animeViewModel.promotionalVideos.collectAsStateWithLifecycle()
 
         randomAnime?.let {
-            RandomAnimeCard(
-                modifier = Modifier.fillMaxWidth(),
-                randomAnime = it
-            )
+            with(LocalCurrentTransitionScope.current) {
+                RandomAnimeCard(
+                    modifier = Modifier.fillMaxWidth()
+                        .sharedElement(
+                            state = rememberSharedContentState(key = it.id),
+                            animatedVisibilityScope = animatedContentScope!!
+                        )
+                        .clickable {
+                            navigateToAnimeDetails(it.id)
+                        },
+                    randomAnime = it
+                )
+            }
         }
 
         if (!topAnime.isNullOrEmpty()) {
-            TopAnimeSection(topAnime = topAnime!!)
+            TopAnimeSection(
+                animatedContentScope = animatedContentScope!!,
+                topAnime = topAnime!!,
+                onAnimeClick = {
+                    navigateToAnimeDetails(it)
+                }
+            )
         }
 
         if (!currentSeasonAnime.isNullOrEmpty()) {
-            CurrentSeasonAnimeSection(currentSeasonAnime = currentSeasonAnime!!)
+            CurrentSeasonAnimeSection(
+                animatedContentScope = animatedContentScope!!,
+                currentSeasonAnime = currentSeasonAnime!!,
+                onAnimeClick = {
+                    navigateToAnimeDetails(it)
+                }
+            )
         }
 
         if (!promotionalVideos.isNullOrEmpty()) {
@@ -86,9 +114,12 @@ fun AnimeScreen(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun TopAnimeSection(
-    topAnime: List<AnimeCard>
+    animatedContentScope: AnimatedContentScope,
+    topAnime: List<AnimeCard>,
+    onAnimeClick: (Int) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -112,7 +143,20 @@ private fun TopAnimeSection(
                 if (index == 0) {
                     Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
                 }
-                TopAnimeCard(animeCard = topAnime[index], index = index + 1)
+                with(LocalCurrentTransitionScope.current) {
+                    TopAnimeCard(
+                        modifier = Modifier
+                            .sharedElement(
+                                state = rememberSharedContentState(topAnime[index].id),
+                                animatedVisibilityScope = animatedContentScope
+                            )
+                            .clickable {
+                            onAnimeClick(topAnime[index].id)
+                        },
+                        animeCard = topAnime[index],
+                        index = index + 1
+                    )
+                }
                 if (index == topAnime.size - 1) {
                     Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
                 }
@@ -123,10 +167,13 @@ private fun TopAnimeSection(
 
 @Composable
 private fun TopAnimeCard(
+    modifier: Modifier = Modifier,
     animeCard: AnimeCard,
     index: Int
 ) {
-    Box {
+    Box(
+        modifier = modifier
+    ) {
         OutlineText(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -143,9 +190,12 @@ private fun TopAnimeCard(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun CurrentSeasonAnimeSection(
-    currentSeasonAnime: List<AnimeCard>
+    animatedContentScope: AnimatedContentScope,
+    currentSeasonAnime: List<AnimeCard>,
+    onAnimeClick: (Int) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -169,7 +219,19 @@ private fun CurrentSeasonAnimeSection(
                 if (index == 0) {
                     Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
                 }
-                AnimeCardView(animeCard = currentSeasonAnime[index])
+                with(LocalCurrentTransitionScope.current) {
+                    AnimeCardView(
+                        modifier = Modifier
+                            .sharedElement(
+                                state = rememberSharedContentState(currentSeasonAnime[index].id),
+                                animatedVisibilityScope = animatedContentScope
+                            )
+                            .clickable {
+                            onAnimeClick(currentSeasonAnime[index].id)
+                        },
+                        animeCard = currentSeasonAnime[index]
+                    )
+                }
                 if (index == currentSeasonAnime.size - 1) {
                     Spacer(modifier = Modifier.width(DokiZoneTheme.dimens.generalPadding))
                 }
@@ -231,32 +293,12 @@ private fun PromotionalVideoCardView(
         ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box {
-            AsyncImageWithPreview(
-                modifier = modifier
-                    .width(200.dp)
-                    .aspectRatio(16/9f)
-                    .clip(shape = DokiZoneTheme.shapes.imageShape),
-                model = promotionalVideoCard.imageUrl,
-                contentDescription = promotionalVideoCard.title,
-                contentScale = ContentScale.Crop
-            )
-
-            Box(
-                modifier = Modifier.align(Alignment.Center)
-                    .size(48.dp)
-                    .clip(shape = DokiZoneTheme.shapes.circleShape)
-                    .background(color = Color.DarkGray800.copy(alpha = 0.4f))
-            ) {
-                Icon(
-                    modifier = Modifier.align(Alignment.Center)
-                        .size(32.dp),
-                    painter = painterResource(R.drawable.ic_play),
-                    contentDescription = null,
-                    tint = Color.White,
-                )
-            }
-        }
+        ImageVideoView(
+            modifier = Modifier
+                .width(200.dp),
+            imageUrl = promotionalVideoCard.imageUrl,
+            contentDescription = promotionalVideoCard.title
+        )
         Text(
             modifier = modifier
                 .width(200.dp),

@@ -12,7 +12,7 @@ fun JikanResponse<AnimeResponse>.toAnimeCard(): AnimeCard {
 fun AnimeResponse.toAnimeCard(): AnimeCard {
     return AnimeCard(
         id = malId,
-        imageUrl = images.jpg.largeImageUrl,
+        imageUrl = images.jpg.largeImageUrl!!,
         title = title,
         synopsis = synopsis
     )
